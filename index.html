@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>150 Receitas Sem Glúten e Sem Lactose</title>
+    <style>
+        body {
+            margin: 0;
+            padding-top: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f9fafb;
+            color: #111;
+            line-height: 1.5;
+        }
+
+        #countdown-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ef4444;
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        @keyframes pulse-green {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background: #22c55e;
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 16px;
+            animation: pulse-green 2s infinite;
+        }
+
+        .btn:hover {
+            background: #16a34a;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #16a34a;
+            margin-top: 12px;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .testimonial {
+            font-style: italic;
+            color: #374151;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+            gap: 12px;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .faq-item {
+            margin-bottom: 16px;
+        }
+
+        footer {
+            background: #111827;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #9ca3af;
+            text-decoration: none;
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-question {
+            background-color: #f3f4f6;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 8px;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background-color: #e5e7eb;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 20px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 16px;
+            color: #4b5563;
+            background: #fff;
+            border-left: 4px solid #22c55e;
+            margin-bottom: 16px;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Carousel Styles */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding-bottom: 20px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-track .card {
+            flex: 0 0 300px;
+            scroll-snap-align: center;
+        }
+
+        .carousel-btn {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            color: #111;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.2s;
+        }
+
+        .carousel-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .carousel-btn.prev {
+            left: -15px;
+        }
+
+        .carousel-btn.next {
+            right: -15px;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-track .card {
+                flex: 0 0 85%;
+            }
+        }
+    </style>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1422168245983486');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1422168245983486&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+
+    <div id="countdown-bar">
+        🔥 Oferta disponível apenas hoje: <span id="timer" style="margin-left: 8px;">10:00</span>
+    </div>
+
+    <header>
+        <div class="container hero">
+            <h1>150 Receitas Sem Glúten e Sem Lactose</h1>
+            <img src="pao-sem-gluten.jpg" alt="Pão sem glúten sendo preparado"
+                style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <p>Coma bem, cuide da sua saúde e mantenha sua dieta sem abrir mão do sabor.</p>
+            <div class="price">Apenas R$ 9,90</div>
+            <a href="https://www.ggcheckout.com/checkout/v3/OnYsXKkTtnleisq6LwS0" class="btn">Quero acessar agora</a>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Você passa por isso?</h2>
+        <div class="grid grid-3">
+            <div class="card">❌ Fica sem saber o que comer no café da manhã?</div>
+            <div class="card">❌ Enjoa da dieta por repetir sempre as mesmas refeições?</div>
+            <div class="card">❌ Não encontra receitas realmente sem glúten e sem lactose?</div>
+            <div class="card">❌ Acha comida saudável sem graça?</div>
+            <div class="card">❌ Não tem tempo para planejar refeições?</div>
+            <div class="card">❌ Já tentou mudar a alimentação e desistiu?</div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>A solução é simples</h2>
+        <div class="grid grid-3">
+            <div class="card">✔ 150 receitas práticas e saborosas</div>
+            <div class="card">✔ Todas sem glúten e sem lactose</div>
+            <div class="card">✔ Cafés da manhã, almoços, jantares, lanches, sucos, sobremesas e pães</div>
+            <div class="card">✔ Opções rápidas para o dia a dia</div>
+            <div class="card">✔ Planejamento semanal pronto</div>
+        </div>
+    </section>
+
+    <section class="container" id="oferta">
+        <h2>O que você vai receber</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <h3>🍳 Café da manhã</h3>
+                <p>pães, panquecas, bolos e opções rápidas</p>
+            </div>
+            <div class="card">
+                <h3>🍛 Almoço e jantar</h3>
+                <p>refeições completas e marmitas</p>
+            </div>
+            <div class="card">
+                <h3>🥪 Lanches</h3>
+                <p>práticos para qualquer hora</p>
+            </div>
+            <div class="card">
+                <h3>🥤 Sucos</h3>
+                <p>naturais e funcionais</p>
+            </div>
+            <div class="card">
+                <h3>🍰 Sobremesas</h3>
+                <p>doces sem sair da dieta</p>
+            </div>
+        </div>
+
+        <p style="text-align: center; font-size: 18px; margin-top: 20px; font-weight: bold;">Tudo fácil, rápido e
+            gostoso.</p>
+
+        <div style="text-align:center; margin-top: 30px;">
+            <p style="font-size: 18px; margin-bottom: 8px;">De <s>R$ 49,90</s> por apenas:</p>
+            <div class="price">R$ 9,90</div>
+            <a href="https://www.ggcheckout.com/checkout/v3/OnYsXKkTtnleisq6LwS0" class="btn">Comprar agora</a>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Por que funciona?</h2>
+        <div class="grid grid-2">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px;">🚫</div>
+                <h3>Menos inflamação</h3>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px;">🔥</div>
+                <h3>Melhor digestão</h3>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px;">⚖️</div>
+                <h3>Mais controle do apetite</h3>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 32px;">⚡</div>
+                <h3>Mais energia</h3>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 20px; font-size: 18px;">Sem glúten e sem lactose, seu corpo funciona
+            melhor e você mantém a dieta sem sofrimento.</p>
+    </section>
+
+    <section class="container">
+        <h2>Depoimentos</h2>
+        <p style="text-align: center; font-size: 14px; color: #6b7280; margin-top: -20px; margin-bottom: 30px;">pessoas
+            que usaram e aprovaram</p>
+
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev" onclick="scrollCarousel(-1)">&#10094;</button>
+            <div class="carousel-track" id="testimonialTrack">
+                <div class="card testimonial">“Eu achava que seria complicado, mas fiquei chocada com a facilidade. Em
+                    poucos minutos já tinha uma refeição saudável pronta.” <div
+                        style="color: #fbbf24; margin-top: 8px;">
+                        ⭐⭐⭐⭐⭐</div>
+                    <div class="author-info"><img src="profile1.jpg" class="profile-pic"
+                            alt="Carla Menezes"><strong>Carla
+                            Menezes</strong></div>
+                </div>
+                <div class="card testimonial">“Não gosto de cozinhar e mesmo assim consegui fazer tudo sem dificuldade.
+                    É
+                    tudo muito simples e rápido.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
+                    <div class="author-info"><img src="profile2.jpg" class="profile-pic"
+                            alt="Renata Farias"><strong>Renata
+                            Farias</strong></div>
+                </div>
+                <div class="card testimonial">“Sempre pensei que comida saudável dava muito trabalho, mas isso mudou
+                    completamente. Em menos de 15 minutos já estava comendo bem.” <div
+                        style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
+                    <div class="author-info"><img src="profile3.jpg" class="profile-pic"
+                            alt="Juliana Torres"><strong>Juliana Torres</strong></div>
+                </div>
+                <div class="card testimonial">“Achei que não ia gostar do sabor, mas me surpreendi. Além de fácil, é
+                    realmente gostoso.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
+                    <div class="author-info"><img src="profile4.jpg" class="profile-pic"
+                            alt="Patrícia Azevedo"><strong>Patrícia Azevedo</strong></div>
+                </div>
+                <div class="card testimonial">“Mesmo nos dias corridos, consigo preparar algo saudável sem estresse.
+                    Salvou
+                    minha rotina.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
+                    <div class="author-info"><img src="profile5.jpg" class="profile-pic"
+                            alt="Camila Guedes"><strong>Camila
+                            Guedes</strong></div>
+                </div>
+                <div class="card testimonial">“Não precisa ser chef nem passar horas na cozinha. É prático, rápido e
+                    funciona de verdade.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
+                    <div class="author-info"><img src="profile6.jpg" class="profile-pic"
+                            alt="Fernanda Batista"><strong>Fernanda Batista</strong></div>
+                </div>
+            </div>
+            <button class="carousel-btn next" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Perguntas Frequentes</h2>
+
+        <div class="faq-item">
+            <div class="faq-question">📦 Esse produto é físico?</div>
+            <div class="faq-answer">Não. É 100% digital e você recebe o acesso imediatamente após a compra, sem esperar
+                entrega.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">🥗 As receitas são realmente sem glúten e sem lactose?</div>
+            <div class="faq-answer">Sim. Todas as receitas seguem esses critérios e foram pensadas para quem precisa ou
+                escolhe evitar glúten e lactose.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">📱 Posso acessar pelo celular?</div>
+            <div class="faq-answer">Sim. Funciona perfeitamente em celular, tablet e computador.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">⚖️ Funciona para quem está de dieta?</div>
+            <div class="faq-answer">Sim. As receitas são equilibradas, leves e ideais para quem quer emagrecer ou manter
+                uma alimentação saudável.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">⏱️ As receitas são difíceis ou demoram muito?</div>
+            <div class="faq-answer">Não. A maioria é simples, rápida e prática, perfeita para a rotina corrida.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">💳 Como é feito o pagamento? É seguro?</div>
+            <div class="faq-answer">O pagamento é feito por uma plataforma segura e você recebe o acesso imediatamente
+                após a confirmação.</div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Garantia Total</h2>
+        <div class="card" style="text-align:center;">
+            <p>Você tem <strong>7 dias de garantia</strong>. Se não gostar do conteúdo, devolvemos 100% do seu dinheiro.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 - Todos os direitos reservados.</p>
+        <p><a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
+    </footer>
+
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            var interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    display.textContent = "00:00";
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var tenMinutes = 60 * 10,
+                display = document.querySelector('#timer');
+            startTimer(tenMinutes, display);
+
+            // FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Carousel Logic
+            window.scrollCarousel = function (direction) {
+                const track = document.getElementById('testimonialTrack');
+                const scrollAmount = 320; // card width + gap
+                track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+            }
+        };
+    </script>
+</body>
+
+</html>
