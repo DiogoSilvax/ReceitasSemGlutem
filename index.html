@@ -53,6 +53,20 @@
             }
         }
 
+        @keyframes pulse-scale {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
         .btn {
             display: inline-block;
             background: #22c55e;
@@ -80,8 +94,11 @@
         }
 
         .hero h1 {
-            font-size: 28px;
-            margin-bottom: 12px;
+            font-size: 34px;
+            margin-bottom: 24px;
+            color: #111;
+            line-height: 1.3;
+            animation: pulse-scale 2s infinite ease-in-out;
         }
 
         .hero p {
@@ -321,7 +338,8 @@
 
     <header>
         <div class="container hero">
-            <h1>150 Receitas Sem Glúten e Sem Lactose</h1>
+            <h1>Acabe com o Inchaço e a Dor de Barriga: 150 Receitas Deliciosas Sem Glúten e Sem Lactose por Apenas
+                R$9,90!</h1>
             <img src="pao-sem-gluten.jpg" alt="Pão sem glúten sendo preparado"
                 style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <p>Coma bem, cuide da sua saúde e mantenha sua dieta sem abrir mão do sabor.</p>
