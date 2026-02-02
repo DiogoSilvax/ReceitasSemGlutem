@@ -23,7 +23,7 @@
             background-color: #ef4444;
             color: white;
             text-align: center;
-            padding: 12px 0;
+            padding: 12px 20px;
             font-weight: bold;
             z-index: 9999;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -350,8 +350,7 @@
 <body>
 
     <div id="countdown-bar">
-        Oferta por Tempo Limitado: De R$97 por R$19,90 (só até meia-noite!) <span id="timer"
-            style="margin-left: 8px;">10:00</span>
+        Oferta por Tempo Limitado: De R$97 por R$19,90
     </div>
 
     <header>
@@ -362,7 +361,7 @@
                 style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <p>Coma bem, cuide da sua saúde e mantenha sua dieta sem abrir mão do sabor.</p>
             <div class="price">Apenas R$ 19,90</div>
-            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="btn">Quero acessar agora</a>
+            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="btn">Baixar Minhas Receitas Já</a>
             <div class="guarantee-badge">
                 <span style="font-size: 18px; color: #dc2626;">🛡️</span>
                 <span>Garantia de 7 Dias – Sem Perguntas</span>
@@ -475,7 +474,7 @@
         <div style="text-align:center; margin-top: 30px;">
             <p style="font-size: 18px; margin-bottom: 8px;">De <s>R$ 97,00</s> por apenas:</p>
             <div class="price">R$ 19,90</div>
-            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="btn">Comprar agora</a>
+            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="btn">Baixar Minhas Receitas Já</a>
             <div class="guarantee-badge">
                 <span style="font-size: 18px; color: #dc2626;">🛡️</span>
                 <span>Garantia de 7 Dias – Sem Perguntas</span>
@@ -561,28 +560,10 @@
     </footer>
 
     <script>
-        function startTimer(duration, display) {
-            var timer = duration, minutes, seconds;
-            var interval = setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
 
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                display.textContent = minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    clearInterval(interval);
-                    display.textContent = "00:00";
-                }
-            }, 1000);
-        }
 
         window.onload = function () {
-            var tenMinutes = 60 * 10,
-                display = document.querySelector('#timer');
-            startTimer(tenMinutes, display);
+
 
             // FAQ Accordion Logic
             const faqItems = document.querySelectorAll('.faq-item');
