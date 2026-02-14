@@ -4,327 +4,227 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>150 Receitas Sem Glúten e Sem Lactose</title>
+    <title>O Elixir Natural do Vietnã</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            padding-top: 50px;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f9fafb;
-            color: #111;
-            line-height: 1.5;
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-gold: #D4AF37;
+            --cta-green: #228B22;
+            --cta-hover: #1e7b1e;
+            --urgent-red: #ef4444;
         }
 
-        #countdown-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            box-sizing: border-box;
-            background-color: #ef4444;
-            color: white;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
             text-align: center;
-            padding: 12px 20px;
+        }
+
+        /* Urgent Header */
+        .urgent-bar {
+            background-color: var(--urgent-red);
+            color: white;
             font-weight: bold;
-            z-index: 9999;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
+            font-size: 14px;
+            padding: 10px;
+            text-transform: uppercase;
         }
 
         .container {
-            max-width: 1100px;
-            margin: auto;
+            max-width: 600px;
+            /* Mobile-first focus */
+            margin: 0 auto;
             padding: 20px;
         }
 
-        @keyframes pulse-green {
+        /* Headline */
+        .main-headline {
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin: 20px 0;
+            line-height: 1.3;
+            color: #ffffff;
+        }
+
+        .highlight-gold {
+            color: var(--accent-gold);
+        }
+
+        /* Video Section */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            /* Vertical video constraint */
+            margin: 0 auto 10px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            aspect-ratio: 9 / 16;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Placeholder for video - remove this if embedding real video */
+        .video-placeholder {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .sound-alert {
+            font-size: 14px;
+            color: #cccccc;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* Delayed Content */
+        .delayed-content {
+            display: none;
+            /* Hidden by default */
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: block;
+            width: 100%;
+            background: var(--cta-green);
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            padding: 20px 10px;
+            border-radius: 50px;
+            box-shadow: 0 0 15px rgba(34, 139, 34, 0.6);
+            margin-bottom: 10px;
+            transition: transform 0.2s, background 0.2s;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.02);
+            background: var(--cta-hover);
+        }
+
+        .cta-subtext {
+            font-size: 14px;
+            color: #aaaaaa;
+            margin-bottom: 40px;
+        }
+
+        @keyframes pulse {
             0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                box-shadow: 0 0 0 0 rgba(34, 139, 34, 0.7);
             }
 
             70% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+                box-shadow: 0 0 0 15px rgba(34, 139, 34, 0);
             }
 
             100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+                box-shadow: 0 0 0 0 rgba(34, 139, 34, 0);
             }
         }
 
-        @keyframes pulse-scale {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.03);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .btn {
-            display: inline-block;
-            background: #22c55e;
-            color: #fff;
-            padding: 14px 22px;
+        /* Deliverables Cards */
+        .deliverable-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-left: 4px solid var(--accent-gold);
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: left;
             border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 16px;
-            animation: pulse-green 2s infinite;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .btn:hover {
-            background: #16a34a;
-        }
-
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .hero h1 {
-            font-size: 34px;
-            margin-bottom: 24px;
-            color: #111;
-            line-height: 1.3;
-            animation: pulse-scale 2s infinite ease-in-out;
-        }
-
-        .hero p {
+        .deliverable-card h3 {
+            margin: 0;
             font-size: 16px;
-            color: #374151;
+            color: white;
         }
 
-        .price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #16a34a;
-            margin-top: 12px;
+        .deliverable-card p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: #ccc;
         }
 
-        section {
-            padding: 40px 0;
-        }
-
-        h2 {
-            text-align: center;
+        .check-icon {
+            color: var(--cta-green);
             font-size: 24px;
-            margin-bottom: 24px;
         }
 
-        .grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .grid-3 {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .grid-2 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .card {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            font-size: 18px;
-        }
-
-        .testimonial {
-            font-style: italic;
-            color: #374151;
-        }
-
-        .author-info {
-            display: flex;
-            align-items: center;
-            margin-top: 12px;
-            gap: 12px;
-        }
-
-        .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .faq-item {
-            margin-bottom: 16px;
-        }
-
-        footer {
-            background: #111827;
-            color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #9ca3af;
-            text-decoration: none;
-        }
-
-        /* FAQ Accordion Styles */
-        .faq-question {
-            background-color: #f3f4f6;
-            padding: 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 8px;
-            position: relative;
-            transition: background 0.2s;
-        }
-
-        .faq-question:hover {
-            background-color: #e5e7eb;
-        }
-
-        .faq-question::after {
-            content: '+';
-            font-size: 20px;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .faq-item.active .faq-question::after {
-            content: '-';
-        }
-
-        .faq-answer {
-            display: none;
-            padding: 16px;
-            color: #4b5563;
-            background: #fff;
-            border-left: 4px solid #22c55e;
-            margin-bottom: 16px;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-5px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Carousel Styles */
-        .carousel-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .carousel-track {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            padding-bottom: 20px;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .carousel-track::-webkit-scrollbar {
-            display: none;
-        }
-
-        .carousel-track .card {
-            flex: 0 0 300px;
-            scroll-snap-align: center;
-        }
-
-        .carousel-btn {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            color: #111;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: absolute;
-            z-index: 10;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background 0.2s;
-        }
-
-        .carousel-btn:hover {
-            background: #f3f4f6;
-        }
-
-        .carousel-btn.prev {
-            left: -15px;
-        }
-
-        .carousel-btn.next {
-            right: -15px;
-        }
-
-        @media (max-width: 768px) {
-            .carousel-track .card {
-                flex: 0 0 85%;
-            }
+        /* Guarantee */
+        .guarantee-section {
+            background: #111;
+            padding: 30px 20px;
+            margin: 40px -20px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
         }
 
         .guarantee-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background-color: #f0fdf4;
-            color: #15803d;
-            border: 2px solid #22c55e;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: bold;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            font-size: 60px;
+        }
+
+        .payment-icons {
+            margin-top: 15px;
+            font-size: 24px;
+            color: #fff;
+            letter-spacing: 10px;
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #333;
+            padding: 15px 0;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .faq-answer {
             font-size: 14px;
-            margin: 12px auto 0;
-            max-width: fit-content;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            color: #bbbbbb;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding-bottom: 30px;
+            font-size: 12px;
+            color: #555;
         }
     </style>
     <!-- Meta Pixel Code -->
@@ -350,239 +250,128 @@
 
 <body>
 
-    <div id="countdown-bar">
-        Oferta por Tempo Limitado: De R$97 por R$19,90
+    <div class="urgent-bar">
+        ⚠️ ATENÇÃO: Devido a solicitações legais, este vídeo pode ser removido a qualquer momento.
     </div>
 
-    <header>
-        <div class="container hero">
-            <h1>O Ritual de 2.000 anos das montanhas do Vietnã que 'destrava' o metabolismo logo ao acordar.</h1>
-            <p>Como minha amiga descobriu por acaso o pote de vidros escondido em uma vila em Hanói e por que as
-                vietnamitas não sofrem com inchaço abdominal.</p>
-            <img src="capa-oferta.jpg" alt="Mesa de café da manhã com pães e frutas sem glúten"
-                style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div class="price">Apenas R$ 19,90</div>
-            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="btn">QUERO ACESSAR A RECEITA DO ELIXIR</a>
-            <div class="guarantee-badge">
-                <span style="font-size: 18px; color: #dc2626;">🛡️</span>
-                <span>Garantia de 7 Dias – Sem Perguntas</span>
-            </div>
+    <div class="container">
+        <h1 class="main-headline">
+            ESTE RITUAL VIETNAMITA DE <span class="highlight-gold">30 SEGUNDOS</span> ESTÁ DEIXANDO A INDÚSTRIA DO
+            EMAGRECIMENTO EM PÂNICO
+        </h1>
+
+        <div class="video-wrapper">
+            <!-- Replace this iframe with your actual video embed code -->
+            <iframe width="100%" height="100%"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&modestbranding=1&rel=0" title="Video Player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
         </div>
-    </header>
-
-    <section class="container">
-        <h2>Você passa por isso?</h2>
-        <div class="grid grid-3">
-            <div class="card">❌ Fica sem saber o que comer no café da manhã?</div>
-            <div class="card">❌ Enjoa da dieta por repetir sempre as mesmas refeições?</div>
-            <div class="card">❌ Não encontra receitas realmente sem glúten e sem lactose?</div>
-            <div class="card">❌ Acha comida saudável sem graça?</div>
-            <div class="card">❌ Não tem tempo para planejar refeições?</div>
-            <div class="card">❌ Já tentou mudar a alimentação e desistiu?</div>
+        <div class="sound-alert">
+            🔊 Certifique-se de que seu som está ligado
         </div>
-    </section>
 
-    <section class="container">
-        <h2>Depoimentos</h2>
-        <p style="text-align: center; font-size: 14px; color: #6b7280; margin-top: -20px; margin-bottom: 30px;">pessoas
-            que usaram e aprovaram</p>
+        <!-- DELAYED CONTENT STARTS HERE -->
+        <div id="offer-content" class="delayed-content">
 
-        <div class="carousel-wrapper">
-            <button class="carousel-btn prev" onclick="scrollCarousel(-1)">&#10094;</button>
-            <div class="carousel-track" id="testimonialTrack">
-                <div class="card testimonial">“Eu achava que seria complicado, mas fiquei chocada com a facilidade. Em
-                    poucos minutos já tinha uma refeição saudável pronta.” <div
-                        style="color: #fbbf24; margin-top: 8px;">
-                        ⭐⭐⭐⭐⭐</div>
-                    <div class="author-info"><img src="profile1.jpg" class="profile-pic"
-                            alt="Carla Menezes"><strong>Carla
-                            Menezes</strong></div>
-                </div>
-                <div class="card testimonial">“Não gosto de cozinhar e mesmo assim consegui fazer tudo sem dificuldade.
-                    É
-                    tudo muito simples e rápido.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
-                    <div class="author-info"><img src="profile2.jpg" class="profile-pic"
-                            alt="Renata Farias"><strong>Renata
-                            Farias</strong></div>
-                </div>
-                <div class="card testimonial">“Sempre pensei que comida saudável dava muito trabalho, mas isso mudou
-                    completamente. Em menos de 15 minutos já estava comendo bem.” <div
-                        style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
-                    <div class="author-info"><img src="profile3.jpg" class="profile-pic"
-                            alt="Juliana Torres"><strong>Juliana Torres</strong></div>
-                </div>
-                <div class="card testimonial">“Achei que não ia gostar do sabor, mas me surpreendi. Além de fácil, é
-                    realmente gostoso.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
-                    <div class="author-info"><img src="profile4.jpg" class="profile-pic"
-                            alt="Patrícia Azevedo"><strong>Patrícia Azevedo</strong></div>
-                </div>
-                <div class="card testimonial">“Mesmo nos dias corridos, consigo preparar algo saudável sem estresse.
-                    Salvou
-                    minha rotina.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
-                    <div class="author-info"><img src="profile5.jpg" class="profile-pic"
-                            alt="Camila Guedes"><strong>Camila
-                            Guedes</strong></div>
-                </div>
-                <div class="card testimonial">“Não precisa ser chef nem passar horas na cozinha. É prático, rápido e
-                    funciona de verdade.” <div style="color: #fbbf24; margin-top: 8px;">⭐⭐⭐⭐⭐</div>
-                    <div class="author-info"><img src="profile6.jpg" class="profile-pic"
-                            alt="Fernanda Batista"><strong>Fernanda Batista</strong></div>
+            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="cta-button">
+                QUERO ACESSAR A RECEITA DO ELIXIR
+            </a>
+            <div class="cta-subtext">Pagamento único de apenas R$ 27,90</div>
+
+            <div class="deliverable-card">
+                <div class="check-icon">📚</div>
+                <div>
+                    <h3>Guia Mestre: O Elixir Natural do Vietnã</h3>
+                    <p>O passo a passo completo da receita milenar.</p>
                 </div>
             </div>
-            <button class="carousel-btn next" onclick="scrollCarousel(1)">&#10095;</button>
-        </div>
-    </section>
 
-    <section class="container">
-        <h2>A solução é simples</h2>
-        <div class="grid grid-3">
-            <div class="card">✔ 150 receitas práticas e saborosas</div>
-            <div class="card">✔ Todas sem glúten e sem lactose</div>
-            <div class="card">✔ Cafés da manhã, almoços, jantares, lanches, sucos, sobremesas e pães</div>
-            <div class="card">✔ Opções rápidas para o dia a dia</div>
-            <div class="card">✔ Planejamento semanal pronto</div>
-        </div>
-    </section>
-
-    <section class="container" id="oferta">
-        <h2>O que você vai receber</h2>
-        <div class="grid grid-3">
-            <div class="card">
-                <h3>🍳 Café da manhã</h3>
-                <p>pães, panquecas, bolos e opções rápidas</p>
+            <div class="deliverable-card">
+                <div class="check-icon">🔥</div>
+                <div>
+                    <h3>Bônus 1: Protocolo Sem Barriga</h3>
+                    <p>Como acelerar os resultados em 3x.</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>🍛 Almoço e jantar</h3>
-                <p>refeições completas e marmitas</p>
+
+            <div class="deliverable-card">
+                <div class="check-icon">🚫</div>
+                <div>
+                    <h3>Bônus 2: Lista Negra de Alimentos</h3>
+                    <p>O que você deve evitar a todo custo.</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>🥪 Lanches</h3>
-                <p>práticos para qualquer hora</p>
+
+            <div class="guarantee-section">
+                <div class="guarantee-badge">🛡️</div>
+                <h3 style="color: white; margin-bottom: 10px;">7 DIAS DE GARANTIA INCONDICIONAL</h3>
+                <p style="color: #ccc; font-size: 14px;">Seu risco é zero. Se não desinchar, eu te devolvo o dinheiro
+                    sem perguntas.</p>
+                <div class="payment-icons">
+                    💳 💠 💲
+                </div>
+                <p style="font-size: 12px; color: #555; margin-top: 5px;">Ambiente 100% Seguro</p>
             </div>
-            <div class="card">
-                <h3>🥤 Sucos</h3>
-                <p>naturais e funcionais</p>
+
+            <div class="faq-section">
+                <h2 style="color: var(--accent-gold); margin-bottom: 20px;">Perguntas Frequentes</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">A receita é difícil de fazer?</div>
+                    <div class="faq-answer">Não! Você encontra todos os ingredientes em qualquer mercado e leva menos de
+                        5 minutos para preparar.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">É seguro comprar?</div>
+                    <div class="faq-answer">Sim, utilizamos uma plataforma de pagamentos criptografada e segura. Seus
+                        dados estão protegidos.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Como recebo o acesso?</div>
+                    <div class="faq-answer">Imediatamente após a confirmação do pagamento, você recebe um e-mail com o
+                        link para baixar todo o material.</div>
+                </div>
             </div>
-            <div class="card">
-                <h3>🍰 Sobremesas</h3>
-                <p>doces sem sair da dieta</p>
-            </div>
+
+            <footer>
+                <p>© 2026 O Elixir Natural. Todos os direitos reservados.</p>
+                <p>Termos de Uso | Política de Privacidade</p>
+            </footer>
+
         </div>
+        <!-- DELAYED CONTENT ENDS HERE -->
 
-        <p style="text-align: center; font-size: 18px; margin-top: 20px; font-weight: bold;">Tudo fácil, rápido e
-            gostoso.</p>
-
-        <div style="text-align:center; margin-top: 30px;">
-            <p style="font-size: 18px; margin-bottom: 8px;">De <s>R$ 97,00</s> por apenas:</p>
-            <div class="price">R$ 19,90</div>
-            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="btn">QUERO ACESSAR A RECEITA DO ELIXIR</a>
-            <div class="guarantee-badge">
-                <span style="font-size: 18px; color: #dc2626;">🛡️</span>
-                <span>Garantia de 7 Dias – Sem Perguntas</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="container">
-        <h2>Por que funciona?</h2>
-        <div class="grid grid-2">
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 32px;">🚫</div>
-                <h3>Menos inflamação</h3>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 32px;">🔥</div>
-                <h3>Melhor digestão</h3>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 32px;">⚖️</div>
-                <h3>Mais controle do apetite</h3>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 32px;">⚡</div>
-                <h3>Mais energia</h3>
-            </div>
-        </div>
-        <p style="text-align: center; margin-top: 20px; font-size: 18px;">Sem glúten e sem lactose, seu corpo funciona
-            melhor e você mantém a dieta sem sofrimento.</p>
-    </section>
-
-
-
-    <section class="container">
-        <h2>Perguntas Frequentes</h2>
-
-        <div class="faq-item">
-            <div class="faq-question">📦 Esse produto é físico?</div>
-            <div class="faq-answer">Não. É 100% digital e você recebe o acesso imediatamente após a compra, sem esperar
-                entrega.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">🥗 As receitas são realmente sem glúten e sem lactose?</div>
-            <div class="faq-answer">Sim. Todas as receitas seguem esses critérios e foram pensadas para quem precisa ou
-                escolhe evitar glúten e lactose.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">📱 Posso acessar pelo celular?</div>
-            <div class="faq-answer">Sim. Funciona perfeitamente em celular, tablet e computador.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">⚖️ Funciona para quem está de dieta?</div>
-            <div class="faq-answer">Sim. As receitas são equilibradas, leves e ideais para quem quer emagrecer ou manter
-                uma alimentação saudável.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">⏱️ As receitas são difíceis ou demoram muito?</div>
-            <div class="faq-answer">Não. A maioria é simples, rápida e prática, perfeita para a rotina corrida.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">💳 Como é feito o pagamento? É seguro?</div>
-            <div class="faq-answer">O pagamento é feito por uma plataforma segura e você recebe o acesso imediatamente
-                após a confirmação.</div>
-        </div>
-    </section>
-
-    <section class="container">
-        <h2>RISCO ZERO - A GARANTIA</h2>
-        <div class="card" style="text-align:center;">
-            <p>7 Dias de Garantia Incondicional. Se você ler o material, testar a receita e achar que não é para você,
-                basta nos enviar um e-mail. Devolvemos 100% do seu dinheiro sem perguntas. O risco é todo meu, o
-                benefício é todo seu.</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 - Todos os direitos reservados.</p>
-        <p><a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
-    </footer>
+    </div>
 
     <script>
+        // SCRIPT DE DELAY (ATRASO)
+        // Altere o valor abaixo para os segundos desejados (ex: 350)
+        // const delaySeconds = 350; 
 
+        // Para testes, você pode usar um valor menor, como 5 segundos:
+        const delaySeconds = 5;
 
-        window.onload = function () {
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                var offer = document.getElementById('offer-content');
+                if (offer) {
+                    offer.style.display = 'block';
+                    // Opção de scroll suave até a oferta quando ela aparecer
+                    // offer.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, delaySeconds * 1000);
+        });
 
-
-            // FAQ Accordion Logic
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question.addEventListener('click', () => {
-                    item.classList.toggle('active');
-                });
-            });
-
-            // Carousel Logic
-            window.scrollCarousel = function (direction) {
-                const track = document.getElementById('testimonialTrack');
-                const scrollAmount = 320; // card width + gap
-                track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-            }
-        };
+        // Atalho de URL para pular o delay (ex: sebsite.com/?delay=0)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('delay') === '0') {
+            var offer = document.getElementById('offer-content');
+            if (offer) offer.style.display = 'block';
+        }
     </script>
 </body>
 
