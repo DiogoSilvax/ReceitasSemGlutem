@@ -98,6 +98,38 @@
             background: rgba(0, 0, 0, 0.2);
         }
 
+        /* Pause Overlay (Blue Popup) */
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            /* Above the transparent overlay */
+            background-color: #0044cc;
+            /* Blue background */
+            display: none;
+            /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .pause-text {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
         /* Custom Play Button */
         .play-btn-custom {
             width: 80px;
@@ -318,7 +350,13 @@
 
         <div class="video-wrapper">
             <div id="player"></div>
+            <!-- Transparent overlay for clicking -->
             <div class="video-overlay" id="videoOverlay">
+                <div class="play-btn-custom"></div>
+            </div>
+            <!-- Pause Overlay (Blue) -->
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-text">O SEU VÍDEO ESTÁ ROLANDO<br>NÃO PERCA!</div>
                 <div class="play-btn-custom"></div>
             </div>
         </div>
@@ -427,12 +465,13 @@
         // --- YOUTUBE API CUSTOM CONTROLLER ---
         var player;
         var overlay = document.getElementById('videoOverlay');
+        var pauseOverlay = document.getElementById('pauseOverlay');
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
                 height: '100%',
                 width: '100%',
-                videoId: 'dQw4w9WgXcQ', // SUBSTITUA PELO ID DO SEU VÍDEO
+                videoId: 'aqz-KE-bpKQ', // RANDOM TEST VIDEO (Big Buck Bunny)
                 playerVars: {
                     'playsinline': 1,
                     'controls': 0,
@@ -452,14 +491,21 @@
             // Se o vídeo estiver tocando (state=1)
             if (event.data == YT.PlayerState.PLAYING) {
                 overlay.classList.add('playing');
+                pauseOverlay.style.display = 'none'; // Esconde popup azul
             }
-            // Se pausado (2) ou terminou (0)
-            else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+            // Se pausado (2)
+            else if (event.data == YT.PlayerState.PAUSED) {
                 overlay.classList.remove('playing');
+                pauseOverlay.style.display = 'flex'; // Mostra popup azul
+            }
+            // Se terminou (0)
+            else if (event.data == YT.PlayerState.ENDED) {
+                overlay.classList.remove('playing');
+                // Pode manter o popup azul ou não, opcional
             }
         }
 
-        // Click no overlay controla o vídeo
+        // Click no overlay para tocar/pausar
         overlay.addEventListener('click', function () {
             if (player && typeof player.getPlayerState === 'function') {
                 var state = player.getPlayerState();
@@ -468,6 +514,13 @@
                 } else {
                     player.playVideo();
                 }
+            }
+        });
+
+        // Click no Pause Overlay (azul) para retomar
+        pauseOverlay.addEventListener('click', function () {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
             }
         });
     </script>
