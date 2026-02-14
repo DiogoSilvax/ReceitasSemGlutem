@@ -34,7 +34,6 @@
             padding: 20px;
         }
 
-        /* Headline */
         .main-headline {
             font-size: 26px;
             font-weight: 800;
@@ -48,7 +47,6 @@
             color: var(--accent-gold);
         }
 
-        /* Video Section */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -68,11 +66,9 @@
         #player {
             width: 100%;
             height: 100%;
-            /* POINTER EVENTS ENABLED FOR DEBUGGING */
             pointer-events: auto;
         }
 
-        /* Video Overlay */
         .video-overlay {
             position: absolute;
             top: 0;
@@ -89,7 +85,6 @@
             transition: background 0.3s;
         }
 
-        /* Custom Play Button */
         .play-btn-custom {
             width: 80px;
             height: 80px;
@@ -142,7 +137,6 @@
             display: none;
         }
 
-        /* Pause Overlay */
         .pause-overlay {
             position: absolute;
             top: 0;
@@ -169,7 +163,6 @@
             margin-bottom: 20px;
         }
 
-        /* CTA Button */
         .cta-button {
             display: block;
             width: 100%;
@@ -185,183 +178,11 @@
             text-transform: uppercase;
         }
 
-        /* Delayed Content */
         .delayed-content {
             display: none;
         }
 
-        /* DEBUG CONSOLE */
         #debug-console {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background: rgba(0, 0, 0, 0.9);
-            color: #0f0;
-            font-family: monospace;
-            font-size: 10px;
-            overflow-y: scroll;
-            z-index: 9999;
-            text-align: left;
-            padding: 10px;
-            border-top: 2px solid green;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div style="background: #ef4444; color: white; font-weight: bold; font-size: 14px; padding: 10px;">
-        ⚠️ MODO DEBUG ATIVADO
-    </div>
-
-    <div class="container">
-        <h1 class="main-headline">
-            ESTE RITUAL VIETNAMITA DE <span class="highlight-gold">30 SEGUNDOS</span> ESTÁ DEIXANDO A INDÚSTRIA DO
-            EMAGRECIMENTO EM PÂNICO
-        </h1>
-
-        <div class="video-wrapper">
-            <div id="player"></div>
-
-            <div class="video-overlay" id="videoOverlay">
-                <div class="play-btn-custom"></div>
-                <div class="click-hint">TOQUE PARA INICIAR</div>
-            </div>
-
-            <div class="pause-overlay" id="pauseOverlay">
-                <div class="pause-text">CONTINUE ASSISTINDO!</div>
-                <div class="play-btn-custom"></div>
-            </div>
-        </div>
-
-        <button onclick="forcePlay()"
-            style="background:white; color:black; padding:10px; border:none; margin-top:10px;">
-            FORÇAR PLAY (TESTE)
-        </button>
-
-        <div id="offer-content" class="delayed-content" style="margin-top: 20px;">
-            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="cta-button">
-                QUERO ACESSAR A RECEITA DO ELIXIR
-            </a>
-
-            <div style="margin-top: 20px; padding: 10px; background: #222; border-radius: 5px;">
-                <h3 style="color: white;">Guia Mestre: O Elixir</h3>
-                <p style="color: #ccc;">Receita Completa inclusa.</p>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Debug Console -->
-    <div id="debugConsole">LOG DE ERROS:<br></div>
-
-    <script src="https://www.youtube.com/iframe_api"></script>
-
-    <script>
-        function log(msg) {
-            var consoleDiv = document.getElementById('debugConsole');
-            var time = new Date().toLocaleTimeString();
-            consoleDiv.innerHTML += `[${time}] ${msg}<br>`;
-            consoleDiv.scrollTop = consoleDiv.scrollHeight;
-            console.log(msg);
-        }
-
-        log("Iniciando Script...");
-
-        var player;
-        var overlay = document.getElementById('videoOverlay');
-        var pauseOverlay = document.getElementById('pauseOverlay');
-
-        function onYouTubeIframeAPIReady() {
-            log("API do YouTube Pronta. Criando Player...");
-            try {
-                player = new YT.Player('player', {
-                    height: '100%',
-                    width: '100%',
-                    videoId: 'M7lc1UVf-VE', // Test Video
-                    playerVars: {
-                        'playsinline': 1,
-                        'controls': 1, // Enable controls for debug
-                        'rel': 0,
-                        'fs': 0,
-                        'modestbranding': 1,
-                        'disablekb': 1,
-                        'iv_load_policy': 3
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange,
-                        'onError': onPlayerError
-                    }
-                });
-            } catch (e) {
-                log("ERRO AO CRIAR PLAYER: " + e.message);
-            }
-        }
-
-        function onPlayerReady(event) {
-            log("Player Carregado com Sucesso!");
-            log("Video ID: " + player.getVideoData().video_id);
-        }
-
-        function onPlayerError(event) {
-            log("ERRO NO PLAYER ID: " + event.data);
-            if (event.data == 150 || event.data == 101) {
-                log("Erro de permissão/embed. Tentando outro vídeo...");
-            }
-        }
-
-        function onPlayerStateChange(event) {
-            log("Mudança de Estado: " + event.data);
-            if (event.data == YT.PlayerState.PLAYING) {
-                overlay.classList.add('playing');
-                pauseOverlay.style.display = 'none';
-                log("Video Tocando -> Overlay Oculto");
-            } else if (event.data == YT.PlayerState.PAUSED) {
-                overlay.classList.remove('playing');
-                pauseOverlay.style.display = 'flex';
-                log("Video Pausado -> Popup Azul");
-            }
-        }
-
-        function forcePlay() {
-            log("Tentando Forçar Play via Botão...");
-            if (player && player.playVideo) {
-                player.playVideo();
-            } else {
-                log("Player não existe ou não tem método playVideo");
-            }
-        }
-
-        overlay.addEventListener('click', function () {
-            log("Clique no Overlay detectado.");
-            if (player && typeof player.playVideo === 'function') {
-                log("Chamando player.playVideo()...");
-                player.playVideo();
-            } else {
-                log("Player ainda não está pronto para receber comandos.");
-            }
-        });
-
-        pauseOverlay.addEventListener('click', function () {
-            log("Clique no Popup Azul detectado.");
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
-            }
-        });
-
-        // Delay reveal logic
-        setTimeout(function () {
-            log("Liberando Oferta...");
-            document.getElementById('offer-content').style.display = 'block';
-        }, 5000);
-
-    </script>
-
-    <style>
-        #debugConsole {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -376,9 +197,204 @@
             padding: 10px;
             border-top: 1px solid #00ff00;
             pointer-events: none;
-            /* Let clicks pass through if needed, but usually we want to read it */
         }
     </style>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1422168245983486');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1422168245983486&ev=PageView&noscript=1" /></noscript>
+</head>
+
+<body>
+    <div style="background: #ef4444; color: white; font-weight: bold; font-size: 14px; padding: 10px;">⚠️ MODO DEBUG
+        EXTREMO 3.0</div>
+    <div class="container">
+        <h1 class="main-headline">ESTE RITUAL VIETNAMITA DE <span class="highlight-gold">30 SEGUNDOS</span> ESTÁ
+            DEIXANDO A INDÚSTRIA DO EMAGRECIMENTO EM PÂNICO</h1>
+        <div class="video-wrapper">
+            <div id="player"></div>
+            <div class="video-overlay" id="videoOverlay">
+                <div class="play-btn-custom"></div>
+                <div class="click-hint">TOQUE PARA INICIAR</div>
+            </div>
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-text">CONTINUE ASSISTINDO!</div>
+                <div class="play-btn-custom"></div>
+            </div>
+        </div>
+        <button onclick="forcePlay()"
+            style="background:white; color:black; padding:10px; border:none; margin-top:10px;">FORÇAR PLAY
+            (TESTE)</button>
+        <div id="offer-content" class="delayed-content" style="margin-top: 20px;">
+            <a href="https://pay.cakto.com.br/tda9b5e_748973" class="cta-button">QUERO ACESSAR A RECEITA DO ELIXIR</a>
+            <div style="margin-top: 20px; padding: 10px; background: #222; border-radius: 5px;">
+                <h3 style="color: white;">Guia Mestre: O Elixir</h3>
+                <p style="color: #ccc;">Receita Completa inclusa.</p>
+            </div>
+        </div>
+    </div>
+    <div id="debugConsole">LOG DE ERROS:<br></div>
+
+    <script>
+        function log(msg) {
+            var consoleDiv = document.getElementById('debugConsole');
+            if (consoleDiv) {
+                var time = new Date().toLocaleTimeString();
+                consoleDiv.innerHTML += `[${time}] ${msg}<br>`;
+                consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            }
+            console.log(msg);
+        }
+
+        log("Iniciando Script v3.0 (Robust Loader)...");
+
+        var player;
+        var overlay = document.getElementById('videoOverlay');
+        var pauseOverlay = document.getElementById('pauseOverlay');
+        var apiLoaded = false;
+
+        // 1. DEFINIÇÃO GLOBAL (Antes de carregar)
+        window.onYouTubeIframeAPIReady = function () {
+            log("CALLBACK RECEBIDO: onYouTubeIframeAPIReady disparou.");
+            apiLoaded = true;
+            createPlayer();
+        }
+
+        function createPlayer() {
+            if (player) {
+                log("AVISO: Player já existe. Ignorando criação.");
+                return;
+            }
+            log("Tentando criar YT.Player...");
+
+            if (!YT || !YT.Player) {
+                log("ERRO CRÍTICO: YT ou YT.Player não definidos!");
+                return;
+            }
+
+            try {
+                player = new YT.Player('player', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: 'M7lc1UVf-VE', // Test Video
+                    playerVars: {
+                        'playsinline': 1,
+                        'controls': 1,
+                        'rel': 0,
+                        'fs': 0,
+                        'modestbranding': 1,
+                        'disablekb': 1,
+                        'iv_load_policy': 3
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange,
+                        'onError': onPlayerError
+                    }
+                });
+                log("Comando new YT.Player enviado.");
+            } catch (e) {
+                log("EXCEÇÃO AO CRIAR PLAYER: " + e.message);
+            }
+        }
+
+        function onPlayerReady(event) {
+            log("SUCESSO: Player reportou 'onReady'!");
+            // Tenta play mudo para "acordar" em alguns navegadores
+            // event.target.mute();
+            // event.target.playVideo();
+        }
+
+        function onPlayerError(event) {
+            log("ERRO DO YOUTUBE: Código " + event.data);
+        }
+
+        function onPlayerStateChange(event) {
+            log("Estado mudou para: " + event.data);
+            if (event.data == YT.PlayerState.PLAYING) {
+                overlay.classList.add('playing');
+                pauseOverlay.style.display = 'none';
+                log("-> Tocando (Overlay oculto)");
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                overlay.classList.remove('playing');
+                pauseOverlay.style.display = 'flex';
+                log("-> Pausado (Popup azul visível)");
+            }
+        }
+
+        // 2. INJEÇÃO DINÂMICA
+        log("Injetando tag script do YouTube...");
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        tag.onload = function () { log("Script tag carregou (rede ok)."); };
+        tag.onerror = function () { log("ERRO DE REDE: Falha ao baixar iframe_api."); };
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. FALLBACK (Checagem)
+        var checks = 0;
+        var checker = setInterval(function () {
+            checks++;
+            if (typeof YT !== 'undefined' && YT.Player) {
+                log("CHECKER: YT object encontrado na tentativa " + checks);
+                if (!player) {
+                    log("CHECKER: Callback falhou. Forçando createPlayer() agora.");
+                    createPlayer();
+                }
+                clearInterval(checker);
+            } else {
+                if (checks % 5 === 0) log("CHECKER: YT ainda não definido... (" + checks + ")");
+            }
+            if (checks > 30) { // 30 segundos
+                log("TIMEOUT: Desistindo de esperar API.");
+                clearInterval(checker);
+            }
+        }, 1000);
+
+        function forcePlay() {
+            log("Botão Forçar Play clicado.");
+            if (player && player.playVideo) {
+                player.playVideo();
+            } else {
+                log("Player indisponível para play.");
+            }
+        }
+
+        overlay.addEventListener('click', function () {
+            log("Click no Overlay.");
+            if (player && player.playVideo) {
+                player.playVideo();
+            } else {
+                log("Player não pronto.");
+            }
+        });
+
+        pauseOverlay.addEventListener('click', function () {
+            if (player && player.playVideo) {
+                player.playVideo();
+            }
+        });
+
+        setTimeout(function () {
+            var offer = document.getElementById('offer-content');
+            if (offer) offer.style.display = 'block';
+            log("Timer de oferta disparou.");
+        }, 5000);
+    </script>
 </body>
 
 </html>
