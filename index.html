@@ -338,6 +338,48 @@
             font-size: 12px;
             color: #555;
         }
+
+        /* Fake Progress Bar */
+        .fake-progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 25;
+            pointer-events: none;
+        }
+
+        .fake-progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #ff0000;
+            /* YouTube Red */
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            transition: width 0.1s linear;
+        }
+
+        /* Animation class to be controlled by JS */
+        .animating-progress {
+            animation-name: fillProgress;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+            /* Starts paused */
+        }
+
+        @keyframes fillProgress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 98%;
+            }
+
+            /* Stops just short to keep them hanging or goes to 100 */
+        }
     </style>
     <!-- Meta Pixel Code -->
     <script>
@@ -385,6 +427,11 @@
             <div class="pause-overlay" id="pauseOverlay">
                 <div class="pause-text">O SEU VÍDEO ESTÁ ROLANDO<br>NÃO PERCA!</div>
                 <div class="play-btn-custom"></div>
+            </div>
+
+            <!-- Fake Progress Bar -->
+            <div class="fake-progress-container">
+                <div class="fake-progress-fill" id="fakeProgress"></div>
             </div>
         </div>
         <div class="sound-alert">
@@ -527,6 +574,21 @@
             // Se terminou (0)
             else if (event.data == YT.PlayerState.ENDED) {
                 overlay.classList.remove('playing');
+                updateProgressBar('paused');
+            }
+
+            // Control Progress Bar
+            if (event.data == YT.PlayerState.PLAYING) {
+                updateProgressBar('running');
+            } else {
+                updateProgressBar('paused');
+            }
+        }
+
+        function updateProgressBar(state) {
+            var bar = document.getElementById('fakeProgress');
+            if (bar) {
+                bar.style.animationPlayState = state;
             }
         }
 
@@ -580,6 +642,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('delay') === '0') {
             document.getElementById('offer-content').style.display = 'block';
+        }
+
+        // Initialize Progress Bar Duration
+        var progressBar = document.getElementById('fakeProgress');
+        if (progressBar) {
+            progressBar.classList.add('animating-progress');
+            // Set animation duration to match delaySeconds
+            progressBar.style.animationDuration = delaySeconds + 's';
         }
     </script>
 </body>
