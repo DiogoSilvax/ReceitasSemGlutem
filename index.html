@@ -380,6 +380,56 @@
 
             /* Stops just short to keep them hanging or goes to 100 */
         }
+
+        /* Testimonials */
+        .testimonials-section {
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .testimonial-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .testimonial-info h4 {
+            margin: 0;
+            color: white;
+            font-size: 16px;
+        }
+
+        .stars {
+            color: #FFD700;
+            font-size: 14px;
+        }
+
+        .testimonial-text {
+            color: #ccc;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.5;
+            margin: 0;
+        }
     </style>
     <!-- Meta Pixel Code -->
     <script>
@@ -466,6 +516,52 @@
                 <div>
                     <h3>Bônus 2: Lista Negra de Alimentos</h3>
                     <p>O que você deve evitar a todo custo.</p>
+                </div>
+            </div>
+
+            <div class="testimonials-section">
+                <h2 style="color: white; text-align: center; margin-bottom: 30px;">O QUE DIZEM QUEM JÁ TESTOU</h2>
+
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="profile1.jpg" alt="Carla" class="testimonial-photo">
+                        <div class="testimonial-info">
+                            <h4>Carla</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">“Eu não esperava sentir diferença tão rápido… minha barriga vivia
+                        estufada principalmente no fim do dia. Depois que comecei a usar essa rotina matinal, me sinto
+                        muito mais leve e confortável. Virou hábito.”</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="profile2.jpg" alt="Juliana" class="testimonial-photo">
+                        <div class="testimonial-info">
+                            <h4>Juliana</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">“Já tinha tentado várias coisas e nada parecia funcionar de verdade. O
+                        que mais gostei foi que é simples de fazer e encaixa fácil na rotina. A sensação de inchaço
+                        diminuiu bastante pra mim.”</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="profile3.jpg" alt="Renata" class="testimonial-photo">
+                        <div class="testimonial-info">
+                            <h4>Renata</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">“Eu acordava me sentindo pesada quase todos os dias… hoje percebo meu
+                        corpo muito mais leve pela manhã. Além disso, sinto que minha digestão melhorou. Valeu muito a
+                        pena testar.”</p>
                 </div>
             </div>
 
