@@ -577,8 +577,9 @@
                 updateProgressBar('paused');
             }
 
-            // Control Progress Bar
+            // Control Progress Bar (and start timer on first play)
             if (event.data == YT.PlayerState.PLAYING) {
+                if (!hasStartedTimer) startTimer();
                 updateProgressBar('running');
             } else {
                 updateProgressBar('paused');
@@ -627,29 +628,38 @@
         });
 
         // --- VSL DELAY SCRIPT ---
-        const delaySeconds = 30; // Tempo para mostrar a oferta
-
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function () {
-                var offer = document.getElementById('offer-content');
-                if (offer) {
-                    offer.style.display = 'block';
-                }
-            }, delaySeconds * 1000);
-        });
+        const delaySeconds = 244; // Tempo para mostrar a oferta (em segundos)
+        var hasStartedTimer = false;
 
         // Atalho de URL para pular o delay (ex: site.com/?delay=0)
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('delay') === '0') {
-            document.getElementById('offer-content').style.display = 'block';
+            showOffer();
         }
 
-        // Initialize Progress Bar Duration
-        var progressBar = document.getElementById('fakeProgress');
-        if (progressBar) {
-            progressBar.classList.add('animating-progress');
-            // Set animation duration to match delaySeconds
-            progressBar.style.animationDuration = delaySeconds + 's';
+        function startTimer() {
+            if (hasStartedTimer) return;
+            hasStartedTimer = true;
+
+            // Start Delay for Content
+            setTimeout(function () {
+                showOffer();
+            }, delaySeconds * 1000);
+
+            // Start Progress Bar Animation
+            var progressBar = document.getElementById('fakeProgress');
+            if (progressBar) {
+                progressBar.classList.add('animating-progress');
+                progressBar.style.animationDuration = delaySeconds + 's';
+                progressBar.style.animationPlayState = 'running';
+            }
+        }
+
+        function showOffer() {
+            var offer = document.getElementById('offer-content');
+            if (offer) {
+                offer.style.display = 'block';
+            }
         }
     </script>
 </body>
